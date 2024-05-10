@@ -1,4 +1,4 @@
-# globo
+# GLOBO
 ## Desafio técnico Globo
 
 - Este projeto foi criado utilizando a linguagem Python em Jupyter Notebook com as biblioteca Pandas e Requests para
