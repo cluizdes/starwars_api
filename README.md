@@ -17,5 +17,6 @@ e salvá-los em um banco de dados. O formato escolhido foi o parquet pela pratic
     
 
 Espero que este guia seja útil para guiar o projeto. Se tiver alguma dúvida, fique à vontade para perguntar.
-Cássio Luiz de Souza
+
+* Cássio Luiz de Souza
 @cluizdes
