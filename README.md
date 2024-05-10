@@ -40,6 +40,6 @@ novamente com os arquivos Python Jupyter Notebook.
 - [Veiculos](https://colab.research.google.com/github/cluizdes/globo/blob/dev/6-sw_insights_vehicles.ipynb)
 
 
-. Espero que este guia seja útil para guiar o projeto. Se tiver alguma dúvida, fique à vontade para perguntar.
+Espero que este guia seja útil para guiar o projeto. Se tiver alguma dúvida, fique à vontade para perguntar.
 * Cássio Luiz de Souza
 @cluizdes
