@@ -24,7 +24,10 @@ git@github.com:cluizdes/globo.git
 
 1.2. Ou ainda executar o código no Google Colab:
 
-[Google Colab - Get Data Star Wars Swapi](https://colab.research.google.com/github/cluizdes/globo/blob/dev/1-getdata_sw.ipynb)
+OBS: Para que seja efetivo rodar diretamente no Google Colab, os arquivos precisam .parquet gerados precisam ser salvos localmente e e abertos 
+novamente com os arquivos Python Jupyter Notebook.
+
+[Google Colab - Get Data Star Wars Swapi](https://colab.research.google.com/github/cluizdes/globo/blob/dev/0-sw-getdata.ipynb)
     
 ### Passo 2
 
