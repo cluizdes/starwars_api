@@ -32,12 +32,12 @@ novamente com os arquivos Python Jupyter Notebook.
 ### Passo 2
 
 * Realizar a leitura dos insights de cada Python Jupyter Notebook listado abaixo
-[Filmes](https://colab.research.google.com/github/cluizdes/globo/blob/dev/1-sw_insights_films.ipynb)
-[Personagens](https://colab.research.google.com/github/cluizdes/globo/blob/dev/2-sw_insights_people.ipynb)
-[Planetas](https://colab.research.google.com/github/cluizdes/globo/blob/dev/3-sw_insights_planets.ipynb)
-[Especies](https://colab.research.google.com/github/cluizdes/globo/blob/dev/4-sw_insights_species.ipynb)
-[`Naves Espaciais`](https://colab.research.google.com/github/cluizdes/globo/blob/dev/5-sw_insights_starships.ipynb)
-[Veiculos](https://colab.research.google.com/github/cluizdes/globo/blob/dev/6-sw_insights_vehicles.ipynb)
+- [Filmes](https://colab.research.google.com/github/cluizdes/globo/blob/dev/1-sw_insights_films.ipynb)
+- [Personagens](https://colab.research.google.com/github/cluizdes/globo/blob/dev/2-sw_insights_people.ipynb)
+- [Planetas](https://colab.research.google.com/github/cluizdes/globo/blob/dev/3-sw_insights_planets.ipynb)
+- [Especies](https://colab.research.google.com/github/cluizdes/globo/blob/dev/4-sw_insights_species.ipynb)
+- [`Naves Espaciais`](https://colab.research.google.com/github/cluizdes/globo/blob/dev/5-sw_insights_starships.ipynb)
+- [Veiculos](https://colab.research.google.com/github/cluizdes/globo/blob/dev/6-sw_insights_vehicles.ipynb)
 
 
 . Espero que este guia seja útil para guiar o projeto. Se tiver alguma dúvida, fique à vontade para perguntar.
