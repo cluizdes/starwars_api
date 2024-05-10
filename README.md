@@ -13,7 +13,7 @@ e salvá-los em um banco de dados. O formato escolhido foi o parquet pela pratic
 
 1. Primeiro obtenha os dados executando o primeiro python notebook:
     
-    [getdata_swapi.ipynb](getdata_swapi.ipynb)
+    [getdata_sw.ipynb](getdata_sw.ipynb)
     
 
 Espero que este guia seja útil para guiar o projeto. Se tiver alguma dúvida, fique à vontade para perguntar.
