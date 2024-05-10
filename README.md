@@ -16,6 +16,10 @@ e salvá-los em um banco de dados. O formato escolhido foi o parquet pela pratic
     [getdata_sw.ipynb](getdata_sw.ipynb) 
 - Pode ser feito o clone do repositorio da e executar os passos ou ainda executar no Google Colab
 
+'''
+git@github.com:cluizdes/globo.git
+'''
+
 [Google Colab](https://colab.research.google.com/github/cluizdes/globo/blob/dev/getdata_sw.ipynb)
     
 
