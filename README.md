@@ -36,7 +36,7 @@ novamente com os arquivos Python Jupyter Notebook.
 - [Personagens](https://colab.research.google.com/github/cluizdes/globo/blob/dev/2-sw_insights_people.ipynb)
 - [Planetas](https://colab.research.google.com/github/cluizdes/globo/blob/dev/3-sw_insights_planets.ipynb)
 - [Especies](https://colab.research.google.com/github/cluizdes/globo/blob/dev/4-sw_insights_species.ipynb)
-- [`Naves Espaciais`](https://colab.research.google.com/github/cluizdes/globo/blob/dev/5-sw_insights_starships.ipynb)
+- [Naves Espaciais](https://colab.research.google.com/github/cluizdes/globo/blob/dev/5-sw_insights_starships.ipynb)
 - [Veiculos](https://colab.research.google.com/github/cluizdes/globo/blob/dev/6-sw_insights_vehicles.ipynb)
 
 
