@@ -11,18 +11,22 @@ e salvá-los em um banco de dados. O formato escolhido foi o parquet pela pratic
 
 - Para execução deste projeto, siga os passos abaixo:
 
-1. Primeiro obtenha os dados executando o primeiro python notebook:
-    
-    [getdata_sw.ipynb](getdata_sw.ipynb) 
-- Pode ser feito o clone do repositorio da e executar os passos ou ainda executar no Google Colab
+1. Primeiro obtenha os dados, no qual pode ser feito de duas maneiras:
+
+1.1. Pode ser feito o clone do repositorio abaixo:
 
 ```
 git@github.com:cluizdes/globo.git
 ```
 
-[Google Colab](https://colab.research.google.com/github/cluizdes/globo/blob/dev/getdata_sw.ipynb)
+1.2. Ou ainda executar o código no Google Colab:
+
+### Passo 1:
+[Google Colab - Get Data Star Wars Swapi](https://colab.research.google.com/github/cluizdes/globo/blob/dev/getdata_sw.ipynb)
     
 . Espero que este guia seja útil para guiar o projeto. Se tiver alguma dúvida, fique à vontade para perguntar.
+
+### Passo 2
 
 * Cássio Luiz de Souza
 @cluizdes
