@@ -24,110 +24,94 @@ df_planets = duckdb_conn.from_parquet("./parquet/planets_data.parquet").to_df()
 df_species = duckdb_conn.from_parquet("./parquet/species_data.parquet").to_df()
 
 # %% [markdown]
-# ## Naves mais poderosas
+# ## Número total de veículos de Star Wars
 
 # %%
 query = """
-SELECT 
-  name,
-  CAST (population as int64) as population
-FROM 
-  df_planets
-WHERE
-population <> 'unknown'
-ORDER BY 
-  population DESC
-LIMIT 10;
+SELECT COUNT(*) AS Total_Veiculos
+FROM df_vehicles;
 
 """
 result = duckdb_conn.execute(query)
 result.df()
 
 # %% [markdown]
-# ## Os diferentes tipos de clima
+# ## Fabricantes mais comuns de veículos
 
 # %%
 
 query = """
-SELECT 
-  climate,
-  COUNT(*) AS count
-FROM 
-  df_planets
-WHERE climate not in ('None', 'unknown')  
-GROUP BY 
-  climate
-ORDER BY 
-  count DESC;
+SELECT manufacturer as Fabricante, COUNT(*) AS Qtd_Veiculos
+FROM df_vehicles
+WHERE manufacturer not in ('None', 'unknown')
+GROUP BY manufacturer
+ORDER BY Qtd_Veiculos DESC;
 """
 result = duckdb_conn.execute(query)
 result.df()
 
 # %% [markdown]
-# ## Tamanho dos planeta
+# ## Classes de veículos mais comuns
 
 # %%
 query = """
-SELECT 
-  name as Nome,
-  CAST(diameter AS int64) AS Diametro
-FROM 
-  df_planets
-WHERE diameter not in ('None', 'unknown')  
-ORDER BY 
-  diameter DESC
-LIMIT 10;
-
-
+SELECT vehicle_class as Classe_Veiculo, COUNT(*) AS Qtd_Veiculo
+FROM df_vehicles
+WHERE vehicle_class not in ('None', 'unknown')
+GROUP BY vehicle_class
+ORDER BY Qtd_Veiculo DESC;
 """
 result = duckdb_conn.execute(query)
 result.df()
 
 
 # %% [markdown]
-# ## Filmes em que os planetas aparecerem
+# ## Veículos com o maior número de pilotos
 
 # %%
 query = """
-SELECT 
-    p.name AS Planeta,
-    f.title AS Filme
-FROM df_planets as p
-JOIN df_films as f
-on ARRAY_CONTAINS(p.films, f.url)
-WHERE p.name not in ('None', 'unknown') 
+SELECT v.name AS Nome_Veiculo, 
+       COUNT(p.url) AS Numero_Pilotos
+FROM df_vehicles as v
+JOIN df_people as p 
+ON ARRAY_CONTAINS(p.vehicles, v.url)
+WHERE v.vehicle_class NOT IN ('None', 'unknown')
+GROUP BY v.name
+ORDER BY Numero_Pilotos DESC;
+ 
 """
 result = duckdb_conn.execute(query)
 result.df()
 
 # %% [markdown]
-# ## Quem mora nos planetas
+# ## Veículos com a maior capacidade de carga
 
 # %%
 query = """
-SELECT p.name AS Nome,
-    pl.name AS Planeta
-FROM df_people as p
-join df_planets as pl
-on p.homeworld = pl.url
-ORDER BY pl.name
+SELECT name AS Nome_Veiculo, 
+       CASE 
+           WHEN TRY_CAST(cargo_capacity AS int64) IS NULL THEN NULL 
+           ELSE CAST(cargo_capacity AS int64) 
+       END AS Capacidade_Carga
+FROM df_vehicles
+WHERE cargo_capacity NOT IN ('None', 'unknown')
+
+
 """
 result = duckdb_conn.execute(query)
 result.df()
 
 # %% [markdown]
-# ## Temperatura dos planeta
+# ## Veículos que aparecem em mais filmes
 
 # %%
 query = """
-SELECT 
-name as Nome,
-climate as Clima,
-terrain as Terreno,
-surface_water as Agua
-FROM df_planets as p
-WHERE diameter not in ('None', 'unknown') 
-ORDER BY Agua, Clima
+SELECT v.name AS Nome_Veiculo, COUNT(f.url) AS Numero_Filmes
+FROM df_vehicles v
+JOIN df_films f 
+ON ARRAY_CONTAINS(f.vehicles, v.url)
+GROUP BY v.name
+ORDER BY Numero_Filmes DESC;
 """
 result = duckdb_conn.execute(query)
 result.df()

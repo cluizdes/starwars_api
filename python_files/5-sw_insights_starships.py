@@ -24,110 +24,97 @@ df_planets = duckdb_conn.from_parquet("./parquet/planets_data.parquet").to_df()
 df_species = duckdb_conn.from_parquet("./parquet/species_data.parquet").to_df()
 
 # %% [markdown]
-# ## Naves mais poderosas
+# ## Número total de naves de Star Wars
 
 # %%
 query = """
-SELECT 
-  name,
-  CAST (population as int64) as population
-FROM 
-  df_planets
-WHERE
-population <> 'unknown'
-ORDER BY 
-  population DESC
+SELECT COUNT(*) AS Total_StarShips
+FROM df_starships;
+"""
+result = duckdb_conn.execute(query)
+result.df()
+
+# %% [markdown]
+# ## Fabricantes mais comuns de naves
+
+# %%
+
+query = """
+SELECT manufacturer as Fabricante, COUNT(*) AS Naves
+FROM df_starships
+WHERE Fabricante <> ('None')
+GROUP BY manufacturer
+ORDER BY Naves DESC;
+
+"""
+result = duckdb_conn.execute(query)
+result.df()
+
+# %% [markdown]
+# ## Comprimento médio das naves por classe
+
+# %%
+query = """
+SELECT starship_class as Classe, AVG(CAST(REPLACE(length, ',', '.') AS DOUBLE)) AS Comprimento_Medio
+FROM df_starships
+WHERE starship_class <> ('None')
+GROUP BY starship_class;
+"""
+
+result = duckdb_conn.execute(query)
+result.df()
+
+
+# %% [markdown]
+# ## Naves com maior capacidade de carga
+
+# %%
+query = """
+SELECT name as Nome, CAST (cargo_capacity AS int64) as Capacidade
+FROM df_starships
+WHERE cargo_capacity not in ('None', 'unknown')
+ORDER BY cargo_capacity DESC
 LIMIT 10;
+"""
+result = duckdb_conn.execute(query)
+result.df()
+
+# %% [markdown]
+# ## Filmes em que cada nave aparece
+
+# %%
+query = """
+SELECT s.name AS Nome_Nave, f.title AS Nome_Filme
+FROM df_starships s
+JOIN df_films f 
+ON ARRAY_CONTAINS(f.starships, s.url)
+"""
+result = duckdb_conn.execute(query)
+result.df()
+
+# %% [markdown]
+# ## Número de naves por piloto
+
+# %%
+query = """
+SELECT p.name AS Nome_Piloto, COUNT(*) AS Qtd_Nave
+FROM df_starships s
+JOIN df_people p ON p.url = ANY(s.pilots)
+GROUP BY p.name
+ORDER BY Qtd_Nave DESC;
 
 """
 result = duckdb_conn.execute(query)
 result.df()
 
 # %% [markdown]
-# ## Os diferentes tipos de clima
-
-# %%
-
-query = """
-SELECT 
-  climate,
-  COUNT(*) AS count
-FROM 
-  df_planets
-WHERE climate not in ('None', 'unknown')  
-GROUP BY 
-  climate
-ORDER BY 
-  count DESC;
-"""
-result = duckdb_conn.execute(query)
-result.df()
-
-# %% [markdown]
-# ## Tamanho dos planeta
+# ## Naves que podem transportar mais passageiros do que a tripulação
 
 # %%
 query = """
-SELECT 
-  name as Nome,
-  CAST(diameter AS int64) AS Diametro
-FROM 
-  df_planets
-WHERE diameter not in ('None', 'unknown')  
-ORDER BY 
-  diameter DESC
-LIMIT 10;
-
-
-"""
-result = duckdb_conn.execute(query)
-result.df()
-
-
-# %% [markdown]
-# ## Filmes em que os planetas aparecerem
-
-# %%
-query = """
-SELECT 
-    p.name AS Planeta,
-    f.title AS Filme
-FROM df_planets as p
-JOIN df_films as f
-on ARRAY_CONTAINS(p.films, f.url)
-WHERE p.name not in ('None', 'unknown') 
-"""
-result = duckdb_conn.execute(query)
-result.df()
-
-# %% [markdown]
-# ## Quem mora nos planetas
-
-# %%
-query = """
-SELECT p.name AS Nome,
-    pl.name AS Planeta
-FROM df_people as p
-join df_planets as pl
-on p.homeworld = pl.url
-ORDER BY pl.name
-"""
-result = duckdb_conn.execute(query)
-result.df()
-
-# %% [markdown]
-# ## Temperatura dos planeta
-
-# %%
-query = """
-SELECT 
-name as Nome,
-climate as Clima,
-terrain as Terreno,
-surface_water as Agua
-FROM df_planets as p
-WHERE diameter not in ('None', 'unknown') 
-ORDER BY Agua, Clima
+SELECT name as Nome_Nave, passengers as Qtd_Passageiros, crew as Tripulacao
+FROM df_starships
+WHERE passengers > crew and passengers not in ('None', 'None', 'unknown');
 """
 result = duckdb_conn.execute(query)
 result.df()

@@ -1,3 +1,7 @@
+# %% [markdown]
+# #   Insights STARS WARS - Teste Prático Globo
+
+# %%
 import os
 import shutil
 import duckdb
@@ -19,8 +23,10 @@ df_vehicles = duckdb_conn.from_parquet("./parquet/vehicles_data.parquet").to_df(
 df_planets = duckdb_conn.from_parquet("./parquet/planets_data.parquet").to_df()
 df_species = duckdb_conn.from_parquet("./parquet/species_data.parquet").to_df()
 
+# %% [markdown]
 # ## Quantidade de personagens nos filmes
 
+# %%
 query = """
 SELECT 
   title AS Filme,
@@ -34,9 +40,10 @@ GROUP BY
 result = duckdb_conn.execute(query)
 result.df()
 
-
+# %% [markdown]
 # ## Top 10 Personagens que apareceram nos filmes
 
+# %%
 
 query = """
 WITH CharacterCounts AS (
@@ -82,6 +89,7 @@ LIMIT 10;
 result = duckdb_conn.execute(query)
 result.df()
 
+# %%
 query = """
 SELECT 
   *
@@ -98,3 +106,6 @@ LIMIT 5; -- Verificar os dados do DataFrame df_people
 """
 result = duckdb_conn.execute(query)
 result.df()
+
+
+

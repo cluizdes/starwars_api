@@ -23,87 +23,109 @@ df_vehicles = duckdb_conn.from_parquet("./parquet/vehicles_data.parquet").to_df(
 df_planets = duckdb_conn.from_parquet("./parquet/planets_data.parquet").to_df()
 df_species = duckdb_conn.from_parquet("./parquet/species_data.parquet").to_df()
 
-# %% [markdown]
-# ## Quantidade de personagens nos filmes
-
 # %%
 query = """
-SELECT 
-  title AS Filme,
-  COUNT(DISTINCT character) AS Personagens
-FROM 
-  df_films,
-  UNNEST(STRING_SPLIT(CAST(characters AS VARCHAR), ',')) AS character
-GROUP BY 
-  title;
+SELECT *
+FROM df_species as s
+limit 5
+;
+
 """
 result = duckdb_conn.execute(query)
 result.df()
 
 # %% [markdown]
-# ## Top 10 Personagens que apareceram nos filmes
+# ## Distribuição de Espécies por Planeta
 
 # %%
-
 query = """
-WITH CharacterCounts AS (
-  SELECT 
-    films.title,
-    characters.element AS most_appeared_character,
-    COUNT(*) AS appearances
-  FROM 
-    df_films AS films
-  CROSS JOIN UNNEST(films.characters) AS characters(element)
-  GROUP BY 
-    films.title, characters.element
-),
-
-People AS (
-  SELECT
-    url,
-    name
-  FROM
-    df_people
-),
-
-CharacterFilmCounts AS (
-  SELECT
-    p.name AS Personagem,
-    COUNT(DISTINCT cc.title) AS Qtde_de_Filmes
-  FROM
-    CharacterCounts cc
-  JOIN
-    People p
-  ON
-    cc.most_appeared_character = p.url
-  GROUP BY
-    p.name
-)
-
-SELECT * FROM CharacterFilmCounts
-ORDER BY Qtde_de_Filmes DESC
-LIMIT 10;
-
+SELECT p.name as Planeta, s.name as Especie, COUNT(s.name) AS Qtd_Especie
+FROM df_species as s
+JOIN df_planets as p
+ON s.homeworld = p.url
+GROUP BY p.name, s.name;
 
 """
 result = duckdb_conn.execute(query)
 result.df()
 
-# %%
-query = """
-SELECT 
-  *
-FROM 
-  df_films
-LIMIT 5; -- Verificar os dados do DataFrame df_films
+# %% [markdown]
+# ## Relação entre Espécies e Filmes
 
-SELECT 
-  *
-FROM 
-  df_people
-LIMIT 5; -- Verificar os dados do DataFrame df_people
+# %%
+
+query = """
+SELECT
+    s.name AS Especie,
+    COUNT(DISTINCT f.title) AS Qtd_Filmes
+FROM
+    df_species as s
+JOIN
+    df_films as f 
+ON ARRAY_CONTAINS(f.species, s.url)
+GROUP BY
+    s.name
 
 """
 result = duckdb_conn.execute(query)
 result.df()
+
+# %% [markdown]
+# ## Comparação de Características Físicas
+
+# %%
+query = """
+SELECT
+    classification as Classificação,
+    ROUND(AVG(TRY_CAST(REPLACE(REPLACE(REPLACE(average_height, 'unknown', '0'), 'n/a', '0'), 'indefinite', '0') AS FLOAT)),2) AS Altura_Media,
+    ROUND(AVG(TRY_CAST(REPLACE(REPLACE(REPLACE(average_lifespan, 'unknown', '0'), 'n/a', '0'), 'indefinite', '0') AS FLOAT)),2) AS Expectativa_Med_Vida
+FROM
+    df_species
+WHERE
+    classification not in ('unknown','n/a','indefinite') 
+GROUP BY
+    classification;
+"""
+result = duckdb_conn.execute(query)
+result.df()
+
+
+# %% [markdown]
+# ## Idiomas
+
+# %%
+query = """
+SELECT
+    language as Lingua,
+    COUNT(DISTINCT name) AS Qtd_Especies
+FROM
+    df_species
+WHERE language not in('unknown', 'n/a') 
+GROUP BY
+    language;
+
+"""
+result = duckdb_conn.execute(query)
+result.df()
+
+# %% [markdown]
+# ## Qtde de Especies por Filmes
+
+# %%
+query = """
+SELECT
+    f.title AS Filme,
+    COUNT(DISTINCT s.name) AS Qtde_Especie
+FROM
+    df_species as s
+JOIN
+    df_films as f 
+ON ARRAY_CONTAINS(f.species, s.url)
+GROUP BY
+    f.title;
+
+"""
+result = duckdb_conn.execute(query)
+result.df()
+
 
