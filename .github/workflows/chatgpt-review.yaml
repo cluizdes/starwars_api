@@ -1,11 +1,9 @@
-on:
-  pull_request:
-    types: [opened, synchronize]
-
+name: ChatGPT Code Review
+on: [push]
+run-name: ChatGPT Code Review
 jobs:
   code_review_job:
     runs-on: ubuntu-latest
-    name: ChatGPT Code Review
     steps:
       - name: GenAI Code Review
         uses: cirolini/genai-code-review@v2
@@ -14,8 +12,8 @@ jobs:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           github_pr_id: ${{ github.event.number }}
           openai_model: "gpt-3.5-turbo" # optional
-          openai_temperature: 0.5 # optional
-          openai_max_tokens: 2048 # optional
+          #openai_temperature: 0.5 # optional
+          #openai_max_tokens: 2048 # optional
           mode: files # files or patch
           language: en # optional, default is 'en'
-          custom_prompt: "" # optional
+          #custom_prompt: "" # optional
