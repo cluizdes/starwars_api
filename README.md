@@ -1,5 +1,5 @@
-# GLOBO
-## Desafio técnico Globo
+# Star Wars API
+## Consumindo API de Star Wars https://swapi.dev/
 
 - Este projeto foi criado utilizando a linguagem Python em Jupyter Notebook com as biblioteca Pandas e Requests para
 obtenção dos dados.
