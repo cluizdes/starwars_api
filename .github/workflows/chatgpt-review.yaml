@@ -1,6 +1,8 @@
 name: ChatGPT Code Review
-on: [push]
-run-name: ChatGPT Code Review
+on: 
+  push:
+    branches: 
+    - dev
 jobs:
   code_review_job:
     runs-on: ubuntu-latest
@@ -17,3 +19,4 @@ jobs:
           mode: files # files or patch
           language: en # optional, default is 'en'
           #custom_prompt: "" # optional
+          exclude: "**/*.json, **/*.md" # Optional: exclude patterns separated by commas
