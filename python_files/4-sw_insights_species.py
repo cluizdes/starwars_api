@@ -1,5 +1,5 @@
 # %% [markdown]
-# #   Insights STARS WARS - Teste Prático Globo
+# #   Insights STARS WARS
 
 # %%
 import os
